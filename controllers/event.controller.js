@@ -38,7 +38,7 @@ const getUniqueSlug = (title) => {
 // CRUD operations below
 const getEvents = async (req, res) => {
   try {
-    const events = await EventModel.find({ belongsTo: req.user._id }).select(["-__v"])
+    const events = await EventModel.find({ belongsTo: req.user?._id }).select(["-__v"])
 
     return res.json({
       success: true,
@@ -140,7 +140,7 @@ const deleteEvent = async (req, res) => {
 
     return res.json({
       success: true,
-      data: deletedDoc,
+      message: "Deleted Successfully",
     })
   } catch (error) {
     return res.json({

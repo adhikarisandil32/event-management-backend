@@ -61,12 +61,6 @@ const postUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    // get email and password
-    // see if user exists, throw error if doesn't
-    // check if password match
-    // generate refreshToken and store it to the database and cookies
-    // generate accessToken and save it on to the cookies
-
     const { email, password } = req.body
 
     const user = await UserModel.findOne({ email: email }).select("-__v")
@@ -87,7 +81,8 @@ const loginUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: true,
+      // secure: true,
+      sameSite: false,
     }
 
     return res
@@ -122,7 +117,8 @@ const logoutUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: true,
+      // secure: true,
+      sameSite: false,
     }
 
     return res.clearCookie("accessToken", options).clearCookie("refreshToken", options).json({
@@ -154,7 +150,8 @@ const refreshAccessToken = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: true,
+      // secure: true,
+      sameSite: false,
     }
 
     return res.cookie("accessToken", accessToken, options).cookie("refreshToken", newRefreshToken, options).json({

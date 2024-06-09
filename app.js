@@ -6,6 +6,7 @@ const server = http.createServer(app)
 const multer = require("multer")
 const upload = multer()
 const cookieParser = require("cookie-parser")
+const morgan = require("morgan")
 
 const { usersRoute } = require("./routes/user.routes")
 const { eventsRoute } = require("./routes/event.routes")
@@ -13,7 +14,8 @@ const { eventsRoute } = require("./routes/event.routes")
 require("dotenv").config()
 
 // boilerplate middlewares
-app.use(cors())
+app.use(cors({ origin: process.env.FRONTEND_ORIGIN, credentials: true }))
+app.use(morgan("tiny"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(upload.none())
