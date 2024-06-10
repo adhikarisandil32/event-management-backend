@@ -82,7 +82,7 @@ const loginUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "DEV" ? false : true,
-      sameSite: "none",
+      sameSite: process.env.NODE_ENV === "DEV" ? false : "none",
     }
 
     return res
@@ -118,7 +118,7 @@ const logoutUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "DEV" ? false : true,
-      sameSite: "none",
+      sameSite: process.env.NODE_ENV === "DEV" ? false : "none",
     }
 
     return res.clearCookie("accessToken", options).clearCookie("refreshToken", options).json({
@@ -154,7 +154,8 @@ const refreshAccessToken = async (req, res) => {
       secure: process.env.NODE_ENV === "DEV" ? false : true,
 
       // on production, sameSite: false isn't identified, and by default it will be set to sameSite: "Lax" which will raise different origin issue. So, set sameSite to none
-      sameSite: "none",
+      // sameSite false means sameSite won't take any value at all (only in dev mode, same site can be set false). production doesn't identify false value of sameSite, only "lax", "secure" or "none"
+      sameSite: process.env.NODE_ENV === "DEV" ? false : "none",
     }
 
     return res.cookie("accessToken", accessToken, options).cookie("refreshToken", newRefreshToken, options).json({
