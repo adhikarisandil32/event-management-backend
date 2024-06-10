@@ -81,7 +81,7 @@ const loginUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      // secure: true,
+      secure: process.env.NODE_ENV === "DEV" ? false : true,
       sameSite: "none",
     }
 
@@ -117,7 +117,7 @@ const logoutUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      // secure: true,
+      secure: process.env.NODE_ENV === "DEV" ? false : true,
       sameSite: "none",
     }
 
@@ -150,8 +150,8 @@ const refreshAccessToken = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      // since the localhost is http and not https, secure below needs to be false in development. can be true in production
-      // secure: true,
+      // since the localhost is http and not https, secure below needs to be false in development. must be true in production else the sameSite: "none" won't work
+      secure: process.env.NODE_ENV === "DEV" ? false : true,
 
       // on production, sameSite: false isn't identified, and by default it will be set to sameSite: "Lax" which will raise different origin issue. So, set sameSite to none
       sameSite: "none",
