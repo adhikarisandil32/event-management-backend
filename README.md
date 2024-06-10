@@ -1,6 +1,6 @@
 ## Summary Of This Project
 
-This is an event management backend project where a user can register and login to create, view, edit and delete events. Basically manage events over all.
+This is the backend portion of Event Management Full Stack Project ([Frontend] (https://github.com/adhikarisandil32/event-management-frontend)) where a user can register and login to create, view, edit and delete events. Basically manage events over all.
 
 ---
 
