@@ -31,4 +31,18 @@ app.get("/", async (_, res) => {
   })
 })
 
+// to handle api errors
+/* app.get("/api/v1/list", async (req, res, next) => {
+  try {
+    throw new ApiError(401, "unauthorized access")
+  } catch (error) {
+    next(error)
+  }
+}) */
+
+// Global Error Handler
+/* app.use((error, _, res, __) => {
+  return res.status(error.statusCode).json(error)
+}) */
+
 module.exports = { server }
